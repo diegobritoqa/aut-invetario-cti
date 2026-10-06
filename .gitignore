@@ -1,0 +1,14 @@
+# Credenciais Cypress
+cypress.env.json
+
+# Node / Cypress (quando existir)
+node_modules/
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+
+# SO / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
