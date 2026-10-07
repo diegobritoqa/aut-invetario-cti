@@ -26,19 +26,19 @@ Massa: observações `QA-AUTO-<timestamp>`. Login: locators confirmados (`#admin
 
 | ID | Pri | Tipo | Pré-condição | Passos resumidos | Resultado esperado | Dado de teste | Evidência |
 |---|---|---|---|---|---|---|---|
-| CT000 | P0 | + | Ambiente HTTP acessível; credenciais no env | 1. Abrir `/admins/sign_in`. 2. Preencher `#admin_email`. 3. Preencher `#admin_password`. 4. Submeter (`#new_admin > div:nth-child(5) > input` ou `#new_admin input[type="submit"]`) | Sessão autenticada; redirecionamento ao painel; menus `[CONFIRMAR NA UI]` visíveis | `adminEmail` / `adminPassword` | `CT000-dashboard-pos-login.png` |
-| CT045 | P0 | - | Tela de login | 1. E-mail válido. 2. Senha inválida. 3. Entrar | Permanece em `/admins/sign_in`; mensagem `[CONFIRMAR NA UI]`; sem acesso a Atribuições | Senha `QA-AUTO-invalid` | `CT045-senha-invalida.png` |
-| CT046 | P0 | - | Tela de login | 1. Deixar `#admin_email` vazio. 2. Senha qualquer. 3. Entrar | Não autentica; validação HTML5/Devise `[CONFIRMAR NA UI]` | E-mail vazio | `CT046-email-vazio.png` |
+| CT000 | P0 | + | Ambiente HTTP acessível; credenciais no env | 1. Abrir `/admins/sign_in`. 2. Preencher `#admin_email`. 3. Preencher `#admin_password`. 4. Submeter `#new_admin input[type="submit"]` | URL `/`; textos `ATRIBUIÇÕES` e `ATRIBUIÇÕES SEM USUÁRIO` visíveis | `adminEmail` / `adminPassword` | `CT000-dashboard-pos-login.png` |
+| CT045 | P0 | - | Tela de login | 1. E-mail válido. 2. Senha inválida. 3. Entrar | Permanece em `/admins/sign_in`; toast `Email ou senha inválidos.` (~3s) | Senha `QA-AUTO-invalid` | `CT045-senha-invalida.png` |
+| CT046 | P0 | - | Tela de login | 1. Deixar `#admin_email` vazio. 2. Senha qualquer. 3. Entrar | Permanece em `/admins/sign_in`; toast `Email ou senha inválidos.` | E-mail vazio | `CT046-email-vazio.png` |
 
 ---
 
 ## HU01 — Cadastro de atribuições
 
-**Fluxo:** Atribuições → Nova Atribuição → Novo Ativo `[CONFIRMAR NA UI]`.
+**Fluxo:** `/portal_service/bonds` → Nova Atribuição → Atribuir Ativo (`#btn_asset`).
 
 | ID | Pri | Tipo | Pré-condição | Passos resumidos | Resultado esperado | Dado de teste | Evidência |
 |---|---|---|---|---|---|---|---|
-| CT001 | P0 | + | CT000; área, subárea, colaborador e 1 ativo DISPONIVEL | Preencher área, subárea, colaborador, modalidade Presencial, SO, Office desmarcado, 1 ativo via Atribuir Ativo, observações `QA-AUTO-<ts>`, Salvar | Confirmação `[CONFIRMAR NA UI]`; atribuição listada; ativo vinculado no inventário | Área/subárea/colaborador existentes; tombo DISPONIVEL | `CT001-cadastro-completo.png` |
+| CT001 | P0 | + | CT000; primeira área/subárea/colaborador da lista e 1 ativo | `#set_area`, `#resp_subarea`, radio colaborador, `#attended`, Presencial, `#so`, observação `QA-AUTO-<ts>`, `#btn_asset`, Salvar | Texto `Ativos vinculados a:` e `Parabéns!`; tag visível na listagem | Primeira opção não vazia de cada select | `CT001-cadastro-completo.png` |
 | CT002 | P1 | + | Formulário nova atribuição | Selecionar Área e verificar Subárea habilitada/filtrada | Subáreas correspondem à área `[CONFIRMAR NA UI]` | Par área→subárea conhecido | `CT002-cascata-area-subarea.png` |
 | CT003 | P1 | + | Formulário; subárea que permite vazio de colaborador | Preencher área/subárea **sem** colaborador; demais obrigatórios; 1 ativo; Salvar | Grava atribuição sem colaborador (critério HU01) | Subárea `[CONFIRMAR NA UI]` | `CT003-sem-colaborador.png` |
 | CT004 | P1 | + | Massa CT001 ou novo cadastro | Selecionar modalidade **Presencial**; salvar; reabrir | Valor Presencial persistido | Presencial | `CT004-modalidade-presencial.png` |
@@ -48,10 +48,10 @@ Massa: observações `QA-AUTO-<timestamp>`. Login: locators confirmados (`#admin
 | CT008 | P1 | + | Formulário | Deixar checkbox Office desmarcada | Campo pacote oculto/desabilitado/não enviado `[CONFIRMAR NA UI]` | Checkbox off | `CT008-office-desmarcado.png` |
 | CT009 | P2 | + | Happy path mínimo | Salvar com observações vazias | Salva (campo opcional) | Observações vazias | `CT009-observacoes-vazias.png` |
 | CT010 | P1 | + | ≥2 ativos DISPONIVEL | “Atribuir Ativo” duas ou mais vezes; Salvar | Todos os tombos na atribuição e no inventário | 2+ tombos | `CT010-multiplos-ativos.png` |
-| CT011 | P0 | - | Formulário vazio | Tentar Salvar sem Área/Subárea e demais `*` | Não grava; mensagens por campo `[CONFIRMAR NA UI]` | Campos vazios | `CT011-obrigatorios.png` |
+| CT011 | P0 | - | Formulário vazio | Salvar sem preencher | Não grava; `#set_area` continua `Selecione ...` (alerta nativo não está no DOM) | Campos vazios | `CT011-obrigatorios.png` |
 | CT012 | P1 | - | Formulário preenchido não salvo | Preencher dados `QA-AUTO-CANCEL`; Cancelar | Rascunho descartado; lista sem o registro | Texto único de cancelamento | `CT012-cancelar.png` |
-| CT013 | P1 | - | Formulário válido sem ativos | Salvar sem “Atribuir Ativo” | Regra `[CONFIRMAR NA UI]`: bloqueio **ou** gravação sem ativo | Sem tombo | `CT013-salvar-sem-ativo.png` |
-| CT014 | P0 | + | CT001 executado | Localizar atribuição `QA-AUTO-<ts>` na lista/inventário | Mensagem de sucesso `[CONFIRMAR NA UI]`; ativos atribuídos visíveis | Mesmo timestamp de CT001 | `CT014-confirmacao-inventario.png` |
+| CT013 | P1 | - | Formulário válido sem ativos | Salvar sem `#btn_asset` | Bloqueia; texto `Ativo não informado!` | Sem tombo | `CT013-salvar-sem-ativo.png` |
+| CT014 | P0 | + | CT001 executado | Localizar `QA-AUTO-<ts>` após o toast | Toast `Ativos vinculados a: … Parabéns!` e observação na listagem `/portal_service/bonds` | Mesmo timestamp de CT001 | `CT014-confirmacao-inventario.png` |
 
 ---
 

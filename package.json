@@ -1,0 +1,19 @@
+{
+  "name": "aut-invetario-cti",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Automação E2E Cypress — Inventário CTI (PGE-CE)",
+  "scripts": {
+    "postinstall": "cypress install",
+    "cy:open": "cross-env ELECTRON_EXTRA_LAUNCH_ARGS=--disable-gpu cypress open --e2e --browser chrome",
+    "cy:run": "cypress run --browser chrome",
+    "cy:login": "cypress run --browser chrome --spec cypress/e2e/login.cy.js",
+    "cy:login:headed": "cypress run --headed --browser chrome --spec cypress/e2e/login.cy.js",
+    "cy:hu01": "cypress run --browser chrome --spec cypress/e2e/hu01-cadastro-atribuicoes.cy.js",
+    "cy:hu01:headed": "cypress run --headed --browser chrome --spec cypress/e2e/hu01-cadastro-atribuicoes.cy.js"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "cypress": "13.17.0"
+  }
+}

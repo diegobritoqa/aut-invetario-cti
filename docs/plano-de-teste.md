@@ -2,7 +2,7 @@
 
 **Sistema:** Inventario CTI (PGE-CE)  
 **Tipo:** Automação E2E de interface (Cypress)  
-**Fase atual:** Planejamento e documentação (sem implementação de specs)  
+**Fase atual:** Implementação em andamento — login automatizado (CT000/CT045/CT046); ver [locators.md](locators.md)  
 **Ambiente:** `http://testeqa.pge.ce.gov.br`  
 **Login:** `http://testeqa.pge.ce.gov.br/admins/sign_in`
 
@@ -50,7 +50,7 @@
 
 ### 3.1 Entrada (prontidão para executar)
 
-- VPN PGE ativa quando exigida (`sslvpn.pge.ce.gov.br`).
+- Rede com acesso a `testeqa.pge.ce.gov.br` (VPN **não** obrigatória no ambiente validado pelo executor).
 - Host `testeqa.pge.ce.gov.br` acessível via **HTTP** (HTTPS neste ambiente retornou 500 na verificação do agente).
 - Node.js 18+ e Chrome instalados (fase de implementação).
 - `cypress.env.json` local com e-mail e senha (não versionado).
@@ -138,11 +138,13 @@ Login inválido (CT045, CT046) roda **sem** `cy.session` reutilizada da sessão 
 | E-mail | `#admin_email` | Estável (id) |
 | Senha | `#admin_password` | Estável (id) |
 | Entrar (observado) | `#new_admin > div:nth-child(5) > input` | Frágil; registrar na evidência de mapeamento |
-| Entrar (preferido na implementação) | `#new_admin input[type="submit"]` | Fallback menos acoplado ao layout |
+| Entrar (preferido na implementação) | `#new_admin input[type="submit"]` | Usado em `LoginPage` |
+| Toast inválido | `Email ou senha inválidos.` | CT045/CT046 |
+| Pós-login | URL `/`; textos `ATRIBUIÇÕES`, `ATRIBUIÇÕES SEM USUÁRIO` | CT000 |
 
-Demais seletores das HUs: `[CONFIRMAR NA UI]`.
+Sidebar, Gerar Termos e exemplo de Editar: [locators.md](locators.md). Demais campos de formulário HU01–HU05: `[CONFIRMAR NA UI]`.
 
-### 6.2 Estrutura de repositório proposta (não criada nesta fase)
+### 6.2 Estrutura de repositório (implementação parcial)
 
 ```
 cypress/e2e/                          # um spec por HU + login
