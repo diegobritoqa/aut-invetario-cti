@@ -1,119 +1,105 @@
 # Relatório de execução — Inventário CTI
 
-Preencher **após** `cypress run` (ou sessão `cypress open` documentada). Não versionar senhas nem PDFs com CPF.
-
----
+Execução local em 07/10/2026. Senha e PDFs não são versionados.
 
 ## Cabeçalho
 
 | Campo | Valor |
 |---|---|
-| Data | _YYYY-MM-DD_ |
-| Executor | |
-| Branch / commit | |
-| Cypress | _ex.: 13.x_ |
+| Data | 2026-10-07 |
+| Executor | Diego |
+| Branch | main |
+| Cypress | 13.17.0 |
 | Browser | Chrome |
 | `baseUrl` | `http://testeqa.pge.ce.gov.br` |
-| VPN | Sim / Não |
-| Observação de ambiente | |
+| VPN | Não |
+| Observação de ambiente | HTTP. HTTPS do mesmo host retorna 500. |
 
-**Legenda de status:** Passou | Falhou | Bloqueado | Não executado  
-
-**Classificação (se não passou):** defeito de produto | falha de teste | ambiente  
+**Legenda de status:** Passou | Falhou | Bloqueado | Não executado
 
 **Severidade:** S1 bloqueante | S2 alta | S3 média | S4 baixa
 
----
-
 ## Resultados
 
-| ID | Descrição | Status | Evidência | Defeito / falha | Severidade | Notas |
-|---|---|---|---|---|---|---|
-| CT000 | Login válido | | `docs/evidencias/login/CT000-dashboard-pos-login.png` | | | |
-| CT001 | Cadastro happy path HU01 | | `docs/evidencias/hu01/CT001-cadastro-completo.png` | | | |
-| CT002 | Cascata área/subárea | | `docs/evidencias/hu01/CT002-cascata-area-subarea.png` | | | |
-| CT003 | Subárea sem colaborador | | `docs/evidencias/hu01/CT003-sem-colaborador.png` | | | |
-| CT004 | Modalidade Presencial | | `docs/evidencias/hu01/CT004-modalidade-presencial.png` | | | |
-| CT005 | Modalidade Home Office | | `docs/evidencias/hu01/CT005-modalidade-home-office.png` | | | |
-| CT006 | Sistema operacional | | `docs/evidencias/hu01/CT006-sistema-operacional.png` | | | |
-| CT007 | Pacote Office marcado | | `docs/evidencias/hu01/CT007-office-marcado.png` | | | |
-| CT008 | Pacote Office desmarcado | | `docs/evidencias/hu01/CT008-office-desmarcado.png` | | | |
-| CT009 | Observações vazias | | `docs/evidencias/hu01/CT009-observacoes-vazias.png` | | | |
-| CT010 | Múltiplos ativos | | `docs/evidencias/hu01/CT010-multiplos-ativos.png` | | | |
-| CT011 | Obrigatórios no cadastro | | `docs/evidencias/hu01/CT011-obrigatorios.png` | | | |
-| CT012 | Cancelar cadastro | | `docs/evidencias/hu01/CT012-cancelar.png` | | | |
-| CT013 | Salvar sem ativo | | `docs/evidencias/hu01/CT013-salvar-sem-ativo.png` | | | |
-| CT014 | Confirmação e inventário | | `docs/evidencias/hu01/CT014-confirmacao-inventario.png` | | | |
-| CT015 | Carga de campos na edição | | `docs/evidencias/hu02/CT015-carga-campos.png` | | | |
-| CT016 | Seção Ativos da Atribuição | | `docs/evidencias/hu02/CT016-secao-ativos.png` | | | |
-| CT017 | Remover ativo | | `docs/evidencias/hu02/CT017-remover-ativo.png` | | | |
-| CT018 | Adicionar ativo na edição | | `docs/evidencias/hu02/CT018-adicionar-ativo.png` | | | |
-| CT019 | Salvar edição | | `docs/evidencias/hu02/CT019-salvar-edicao.png` | | | |
-| CT020 | Fluxo COM DEFEITO | | `docs/evidencias/hu02/CT020-com-defeito.png` | | | |
-| CT021 | Substituição DISPONIVEL | | `docs/evidencias/hu02/CT021-substituicao-disponivel.png` | | | |
-| CT022 | Obrigatórios na edição | | `docs/evidencias/hu02/CT022-obrigatorios-edicao.png` | | | |
-| CT023 | Cancelar edição | | `docs/evidencias/hu02/CT023-cancelar-edicao.png` | | | |
-| CT024 | Remover todos os ativos | | `docs/evidencias/hu02/CT024-remover-todos-ativos.png` | | | |
-| CT025 | Modal tipos de termo | | `docs/evidencias/hu03/CT025-modal-tipos.png` | | | |
-| CT026 | PDF Responsabilidade | | `docs/evidencias/hu03/CT026-pdf-responsabilidade.png` | | | |
-| CT027 | PDF Empréstimo | | `docs/evidencias/hu03/CT027-pdf-emprestimo.png` | | | |
-| CT028 | Tipos mutuamente exclusivos | | `docs/evidencias/hu03/CT028-tipos-exclusivos.png` | | | |
-| CT029 | Fechar modal pelo X | | `docs/evidencias/hu03/CT029-fechar-x.png` | | | |
-| CT030 | Conteúdo do PDF | | `docs/evidencias/hu03/CT030-pdf-conteudo.png` | | | |
-| CT031 | Gerar termos sem seleção | | `docs/evidencias/hu03/CT031-sem-selecao.png` | | | |
-| CT032 | Termo sem colaborador | | `docs/evidencias/hu03/CT032-termo-sem-colaborador.png` | | | |
-| CT033 | CPF no PDF | | `docs/evidencias/hu03/CT033-cpf-no-pdf.png` | | | |
-| CT034 | Filtros e pesquisar HU04 | | `docs/evidencias/hu04/CT034-filtros-pesquisar.png` | | | |
-| CT035 | Agrupamento área/data | | `docs/evidencias/hu04/CT035-agrupamento.png` | | | |
-| CT036 | Colunas da grade | | `docs/evidencias/hu04/CT036-colunas.png` | | | |
-| CT037 | PDF movimentação | | `docs/evidencias/hu04/CT037-pdf-movimentacao.png` | | | |
-| CT038 | Relatório sem dados | | `docs/evidencias/hu04/CT038-sem-dados.png` | | | |
-| CT039 | Data inválida | | `docs/evidencias/hu04/CT039-data-invalida.png` | | | |
-| CT040 | Período invertido | | `docs/evidencias/hu04/CT040-periodo-invertido.png` | | | |
-| CT041 | HU05 tela distinta | | `docs/evidencias/hu05/CT041-tela-distinta.png` | | | |
-| CT042 | Pesquisa HU05 | | `docs/evidencias/hu05/CT042-pesquisa.png` | | | |
-| CT043 | PDF HU05 | | `docs/evidencias/hu05/CT043-pdf-area.png` | | | |
-| CT044 | HU05 sem dados | | `docs/evidencias/hu05/CT044-sem-dados.png` | | | |
-| CT045 | Senha inválida | | `docs/evidencias/login/CT045-senha-invalida.png` | | | |
-| CT046 | E-mail vazio | | `docs/evidencias/login/CT046-email-vazio.png` | | | |
+Evidência dos casos executados: execução local do Cypress (vídeo em `cypress/videos/`, não versionado). Os P1 e P2 não foram rodados nesta entrega.
 
----
+| ID | Descrição | Status | Notas |
+|---|---|---|---|
+| CT000 | Login válido | Passou | URL `/` com os indicadores de atribuições |
+| CT001 | Cadastro happy path HU01 | Passou | Ativo MOUSE criado na hora e vinculado |
+| CT002 | Cascata área/subárea | Não executado | P1 |
+| CT003 | Subárea sem colaborador | Não executado | P1 |
+| CT004 | Modalidade Presencial | Não executado | P1 |
+| CT005 | Modalidade Home Office | Não executado | P1 |
+| CT006 | Sistema operacional | Não executado | P1 |
+| CT007 | Pacote Office marcado | Não executado | P1 |
+| CT008 | Pacote Office desmarcado | Não executado | P1 |
+| CT009 | Observações vazias | Não executado | P2 |
+| CT010 | Múltiplos ativos | Não executado | P1 |
+| CT011 | Obrigatórios no cadastro | Passou | Área permanece em Selecione |
+| CT012 | Cancelar cadastro | Não executado | P1 |
+| CT013 | Salvar sem ativo | Passou | Mensagem `Ativo não informado!` |
+| CT014 | Confirmação e inventário | Passou | Toast de sucesso e observação na listagem |
+| CT015 | Carga de campos na edição | Passou | Atendido por chega vazio |
+| CT016 | Seção Ativos da Atribuição | Não executado | P1 |
+| CT017 | Remover ativo | Não executado | P1 |
+| CT018 | Adicionar ativo na edição | Não executado | P1 |
+| CT019 | Salvar edição | Passou | Texto de vínculo atualizado e sufixo `-ED` |
+| CT020 | Fluxo COM DEFEITO | Não executado | P1 |
+| CT021 | Substituição DISPONIVEL | Não executado | P1 |
+| CT022 | Obrigatórios na edição | Passou | Sem Atendido por, permanece em `/edit` |
+| CT023 | Cancelar edição | Não executado | P1 |
+| CT024 | Remover todos os ativos | Não executado | P2 |
+| CT025 | Modal tipos de termo | Passou | Responsabilidade e Empréstimo |
+| CT026 | PDF Responsabilidade | Passou | URL com `term_type=liability` |
+| CT027 | PDF Empréstimo | Não executado | P1 |
+| CT028 | Tipos mutuamente exclusivos | Passou | Um radio desmarca o outro |
+| CT029 | Fechar modal pelo X | Não executado | P1 |
+| CT030 | Conteúdo do PDF | Não executado | P1. Na geração manual o CPF veio vazio |
+| CT031 | Gerar termos sem seleção | Passou | Alerta padrão da tela |
+| CT032 | Termo sem colaborador | Não executado | P1 |
+| CT033 | CPF no PDF | Não executado | P1. Não há campo de CPF no modal |
+| CT034 | Filtros e pesquisar HU04 | Passou | Grade em `moves_today` |
+| CT035 | Agrupamento por área | Passou | Faixa CTI |
+| CT036 | Colunas da grade | Passou | Seis colunas da movimentação |
+| CT037 | PDF movimentação | Passou | Link com área e período |
+| CT038 | Relatório sem dados | Não executado | P1 |
+| CT039 | Data inválida | Não executado | P2 |
+| CT040 | Período invertido | Não executado | P2 |
+| CT041 | HU05 tela distinta | Passou | Título Atribuições por Área/Subárea |
+| CT042 | Pesquisa HU05 | Passou | Relatório sintético da CTI |
+| CT043 | PDF HU05 | Passou | Link gerado. O Chrome não carrega o arquivo (DEF-06) |
+| CT044 | HU05 sem dados | Não executado | P1 |
+| CT045 | Senha inválida | Passou | Toast `Email ou senha inválidos.` |
+| CT046 | E-mail vazio | Passou | Mesmo toast; permanece no login |
 
 ## Totais
 
 | Status | Quantidade |
 |---|---|
-| Passou | |
-| Falhou | |
-| Bloqueado | |
-| Não executado | |
+| Passou | 21 |
+| Falhou | 0 |
+| Bloqueado | 0 |
+| Não executado | 26 |
 | **Total** | 47 |
 
----
+## Defeitos de produto
 
-## Defeitos de produto (detalhe)
+| ID | Título | Severidade | Notas |
+|---|---|---|---|
+| DEF-01 | Ativo já existente não vincula | S2 | O cadastro só conclui com ativo criado na mesma execução (CT001) |
+| DEF-02 | Atendido por vazio na edição | S2 | Impede salvar até nova seleção (CT015, CT022) |
+| DEF-03 | Alerta de termo com grafia irregular | S4 | `Atribuiçôes` (CT031) |
+| DEF-04 | Termo sem CPF | S2 | Modal sem campo; PDF sem o número |
+| DEF-05 | Pesquisar fora da tela na movimentação | S2 | Gerar Relatório sem pesquisa não envia filtro |
+| DEF-06 | PDF de atribuições por área não carrega | S2 | URL `assignments_by_area_pdf`; Chrome: `Falha ao carregar documento PDF.` (CT043) |
+| DEF-07 | Texto de script na listagem | S3 | Colaborador e áreas com marcação visível |
+| DEF-08 | HTTPS retorna 500 | S3 | Suíte usa HTTP |
 
-| ID CT | Título | Severidade | Evidência | Notas |
-|---|---|---|---|---|
-| | | | | |
+## Falhas de teste / ambiente
 
----
+Nenhuma na execução final. As correções de seletor feitas durante a automação não foram registradas como defeito de produto.
 
-## Falhas de teste / ambiente (detalhe)
+## Vídeos
 
-| ID CT | Título | Classificação | Evidência | Notas |
-|---|---|---|---|---|
-| | | | | |
-
----
-
-## Vídeos e artefatos Cypress
-
-| Spec | Vídeo | Screenshots de falha |
-|---|---|---|
-| login.cy.js | `cypress/videos/` | `cypress/screenshots/` |
-| hu01-cadastro-atribuicoes.cy.js | | |
-| hu02-editar-atribuicoes.cy.js | | |
-| hu03-gerar-termos.cy.js | | |
-| hu04-relatorio-movimentacao.cy.js | | |
-| hu05-relatorio-atribuicoes-area.cy.js | | |
+Gerados localmente em `cypress/videos/` para `login.cy.js`, `hu01-cadastro-atribuicoes.cy.js`, `hu02-editar-atribuicoes.cy.js`, `hu03-gerar-termos.cy.js`, `hu04-movimentacao-ativos.cy.js` e `hu05-atribuicoes-por-area.cy.js`. Não entram no Git.

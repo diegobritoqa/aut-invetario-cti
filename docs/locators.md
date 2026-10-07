@@ -87,11 +87,55 @@ Atualizado com descoberta manual/automação. Preferir ids e `data-*`; XPath aba
 | Sem ativo | texto `Ativo não informado!` |
 | Obrigatório vazio | não há nó de mensagem inspecionável; placeholder `#set_area option[value='']` com `Selecione ...` permanece |
 
-### Estratégia futura para “Editar”
+## Atribuições — edição (`/portal_service/bonds/:id/edit`)
 
-1. Criar atribuição HU01 com observação `QA-AUTO-<timestamp>`.
-2. Filtrar/paginar listagem até a linha com esse texto.
-3. Clicar `a[href*="/portal_service/bonds/"][href$="/edit"]` **dentro da linha** (não usar id fixo 1795 em produção de testes).
+| Elemento | Seletor / texto |
+|---|---|
+| Título | `Atualizando Atribuição` |
+| Abrir | na linha da observação, `a[href$="/edit"]` |
+| Observação | `#bond_observation` |
+| Atendido por | `#attended` chega **vazio** e é `required` para salvar |
+| Salvar | `input[type="submit"][name="commit"][value="Salvar"]` |
+| Sucesso | `Vínculo de <colaborador>, atualizado com sucesso!` e volta para `/portal_service/bonds` |
+| Obrigatório vazio | balão nativo `Selecione um item da lista` |
+
+## Atribuições — gerar termos
+
+| Elemento | Seletor / texto |
+|---|---|
+| Abrir modal | `button[data-target="#generate_term"]` |
+| Modal | `#generate_term` |
+| Responsabilidade | `#term_type_liability` (`value="liability"`) |
+| Empréstimo | `#term_type_loan` (`value="loan"`) |
+| Gerar | `#btn-termo` |
+| Fechar | `#generate_term button[data-dismiss="modal"]` |
+| Sem checkbox ou sem tipo | `alert` `Selecione um tipo de Termo e uma ou mais Atribuiçôes` |
+| PDF | nova aba `/portal_service/bonds/term_responsibility_asset?bonds_ids=<id>&term_type=liability` ou `term_type=loan` |
+
+## Relatórios — movimentação de ativos (`/portal_service/reports/index`)
+
+| Elemento | Seletor / texto |
+|---|---|
+| Menu | `#accordionSidebar` → Relatórios → `a[href="/portal_service/reports/index"]` |
+| Área | `#area_name` |
+| Data inicial | `#initial_date` (`type="date"`, valor `aaaa-mm-dd`) |
+| Data final | `#final_date` |
+| Pesquisar | `input[type="submit"][value="Pesquisar"]` (fora da área visível; envia `POST /portal_service/reports/moves_today`) |
+| Grade | Tombo, Nº de Série, Descrição, Lotação Anterior, Lotação Atual, Colaborador; faixa com o nome da área |
+| Gerar Relatório | `a[href*="/portal_service/reports/pdf_create"]`. Sem pesquisa, o href não leva filtro e a tela exibe `Informe uma Área e/ou Período para gerar o pdf!`. Com pesquisa: `pdf_create?area_name=CTI&initial_date=...&final_date=...` |
+
+## Relatórios — atribuições por área (`/portal_service/reports/assignments_by_area`)
+
+| Elemento | Seletor / texto |
+|---|---|
+| Título | `Atribuições por Área/Subárea` |
+| Sintético | `#type_syntetic` (`value="syntetic"`, `required`) |
+| Analítico | `#type_analytic` (`value="analytic"`) |
+| Área | `#search_area` (CTI = `value="9"`; o value é o id, não o nome) |
+| Subárea | `#search_subarea` |
+| Pesquisar | `input[type="submit"][value="Pesquisar"]` |
+| Resultado sintético | painéis `Relatório Sintético - CTI`, `Atribuições por Modalidade`, `Total de Atribuições`. Os filtros voltam vazios depois da pesquisa |
+| PDF | `assignments_by_area_pdf?area=9&subarea=65&type=syntetic`. O Chrome exibe `Falha ao carregar documento PDF.` |
 
 ## Ambiente
 

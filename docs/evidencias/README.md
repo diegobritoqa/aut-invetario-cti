@@ -19,7 +19,7 @@ Exemplos:
 | Origem | Caminho | Git |
 |---|---|---|
 | Prints manuais da matriz | esta pasta | sim (sem dado sensível) |
-| Falha automática Cypress | `cypress/screenshots/` | não (gitignore na implementação) |
+| Falha automática Cypress | `cypress/screenshots/` | não |
 | Vídeo | `cypress/videos/` | não |
 | PDF gerado | `cypress/downloads/` | não |
 

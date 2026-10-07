@@ -10,7 +10,12 @@
     "cy:login": "cypress run --browser chrome --spec cypress/e2e/login.cy.js",
     "cy:login:headed": "cypress run --headed --browser chrome --spec cypress/e2e/login.cy.js",
     "cy:hu01": "cypress run --browser chrome --spec cypress/e2e/hu01-cadastro-atribuicoes.cy.js",
-    "cy:hu01:headed": "cypress run --headed --browser chrome --spec cypress/e2e/hu01-cadastro-atribuicoes.cy.js"
+    "cy:hu01:headed": "cypress run --headed --browser chrome --spec cypress/e2e/hu01-cadastro-atribuicoes.cy.js",
+    "cy:hu02": "cypress run --browser chrome --spec cypress/e2e/hu02-editar-atribuicoes.cy.js",
+    "cy:hu02:headed": "cypress run --headed --browser chrome --spec cypress/e2e/hu02-editar-atribuicoes.cy.js",
+    "cy:hu03": "cypress run --browser chrome --spec cypress/e2e/hu03-gerar-termos.cy.js",
+    "cy:hu04": "cypress run --browser chrome --spec cypress/e2e/hu04-movimentacao-ativos.cy.js",
+    "cy:hu05": "cypress run --browser chrome --spec cypress/e2e/hu05-atribuicoes-por-area.cy.js"
   },
   "devDependencies": {
     "cross-env": "^10.1.0",

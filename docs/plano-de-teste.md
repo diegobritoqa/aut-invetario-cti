@@ -2,7 +2,7 @@
 
 **Sistema:** Inventario CTI (PGE-CE)  
 **Tipo:** Automação E2E de interface (Cypress)  
-**Fase atual:** Implementação em andamento — login automatizado (CT000/CT045/CT046); ver [locators.md](locators.md)  
+**Fase atual:** P0 executado em 07/10/2026 (login e HU01–HU05). Resultado em [relatorio-execucao.md](relatorio-execucao.md).  
 **Ambiente:** `http://testeqa.pge.ce.gov.br`  
 **Login:** `http://testeqa.pge.ce.gov.br/admins/sign_in`
 
@@ -51,8 +51,8 @@
 ### 3.1 Entrada (prontidão para executar)
 
 - Rede com acesso a `testeqa.pge.ce.gov.br` (VPN **não** obrigatória no ambiente validado pelo executor).
-- Host `testeqa.pge.ce.gov.br` acessível via **HTTP** (HTTPS neste ambiente retornou 500 na verificação do agente).
-- Node.js 18+ e Chrome instalados (fase de implementação).
+- Host `testeqa.pge.ce.gov.br` acessível via **HTTP** (HTTPS retorna 500).
+- Node.js 18+, Chrome e Cypress 13.17.0.
 - `cypress.env.json` local com e-mail e senha (não versionado).
 - Massa mínima disponível no ambiente compartilhado:
   - ao menos uma Área e Subárea válidas;
@@ -63,10 +63,9 @@
 
 ### 3.2 Saída (encerramento da execução)
 
-- Cenários P0 executados: passaram **ou** falha classificada (defeito de produto vs falha de teste vs ambiente).
-- [docs/relatorio-execucao.md](relatorio-execucao.md) preenchido.
-- Evidências em [docs/evidencias/](evidencias/) e artefatos Cypress (`screenshots`, `videos`).
-- PDFs gerados validados (quando aplicável) e **não** commitados se contiverem CPF.
+- Cenários P0 executados e classificados no [relatorio-execucao.md](relatorio-execucao.md).
+- P1 e P2 permanecem especificados e não executados nesta entrega.
+- Vídeos e screenshots da execução local não são versionados. PDFs com dado pessoal também não.
 
 ---
 
@@ -80,11 +79,9 @@
 | PDF em nova aba | Cypress perde o contexto | `cy.window` / stub de `window.open` só como fallback; `pdf-parse` |
 | Seletores frágeis (`nth-child`, textos) | Flake | Page Objects; ids quando existirem; `data-cy` sugerido ao produto |
 | Período de relatório ambíguo | Falso negativo | Confirmar inclusividade na UI; casos P2 |
-| HU05 = HU04 no enunciado | Asserções erradas | Tratar telas distintas; colunas HU05 `[CONFIRMAR NA UI]` |
+| HU05 descrita como cópia da HU04 | Asserções da grade erradas | HU05 é o relatório sintético/analítico em `/assignments_by_area` |
 | Certificado associado à VPN | Browser rejeita TLS | Preferir HTTP do ambiente de teste |
-| Timing de app legado | Timeout | `defaultCommandTimeout` elevado |
-
-**Limitação do agente (pesquisa):** o fetch HTTP da tela de login retornou o texto “Inventario CTI / Bem-vindo!”. O navegador automatizado do agente permaneceu em `about:blank`. Telas autenticadas não foram mapeadas automaticamente.
+| Timing de app legado | Timeout | `defaultCommandTimeout` de 15 s |
 
 ---
 
@@ -95,8 +92,8 @@
 - **Usuário:** `qa.teste@teste.pge.ce.gov.br` via variável de ambiente (`adminEmail` / `adminPassword`) ou `cypress.env.json`.
 - **Senha:** nunca no Git. Versionar apenas `cypress.env.example.json` sem valores reais.
 - **Isolamento:** `QA-AUTO-<timestamp>` no campo Observações da atribuição. Specs posteriores localizam o registro por esse texto.
-- **Ativos:** preferir tombos DISPONIVEL dedicados à automação, se existirem; senão, o primeiro disponível da lista `[CONFIRMAR NA UI]`.
-- **CPF (HU03):** valor de teste controlado (não usar CPF de terceiros em evidências públicas).
+- **Ativos:** o vínculo só conclui com um ativo criado na mesma execução (tipo MOUSE). Tombos já listados não gravam a atribuição.
+- **CPF (HU03):** o modal não pede CPF. O PDF de responsabilidade sai sem esse campo. Não versionar PDF com dado pessoal.
 
 ### 5.2 Ordem
 
@@ -112,16 +109,16 @@ Login inválido (CT045, CT046) roda **sem** `cy.session` reutilizada da sessão 
 
 ---
 
-## 6. Ferramentas e configurações Cypress (planejadas)
+## 6. Ferramentas e configurações Cypress
 
-| Item | Valor planejado |
+| Item | Valor |
 |---|---|
-| Cypress | 13+ |
+| Cypress | 13.17.0 |
 | Linguagem | JavaScript |
 | Browser | Chrome |
 | Padrão | Page Objects em `cypress/support/pages/` |
 | Sessão | `cy.session` no comando de login válido |
-| PDF | `pdf-parse` (ou equivalente) |
+| PDF | URL gerada (`window.open` ou `href`); o arquivo da HU05 não abre no visualizador do Chrome |
 | `baseUrl` | `http://testeqa.pge.ce.gov.br` |
 | Vídeo | `video: true` |
 | Print em falha | `screenshotOnRunFailure: true` |
@@ -138,19 +135,18 @@ Login inválido (CT045, CT046) roda **sem** `cy.session` reutilizada da sessão 
 | E-mail | `#admin_email` | Estável (id) |
 | Senha | `#admin_password` | Estável (id) |
 | Entrar (observado) | `#new_admin > div:nth-child(5) > input` | Frágil; registrar na evidência de mapeamento |
-| Entrar (preferido na implementação) | `#new_admin input[type="submit"]` | Usado em `LoginPage` |
+| Entrar | `#new_admin input[type="submit"]` | Usado em `LoginPage` |
 | Toast inválido | `Email ou senha inválidos.` | CT045/CT046 |
 | Pós-login | URL `/`; textos `ATRIBUIÇÕES`, `ATRIBUIÇÕES SEM USUÁRIO` | CT000 |
 
-Sidebar, Gerar Termos e exemplo de Editar: [locators.md](locators.md). Demais campos de formulário HU01–HU05: `[CONFIRMAR NA UI]`.
+Demais telas: [locators.md](locators.md).
 
-### 6.2 Estrutura de repositório (implementação parcial)
+### 6.2 Estrutura de repositório
 
 ```
 cypress/e2e/                          # um spec por HU + login
 cypress/support/pages/
 cypress/support/commands.js           # loginViaUi + cy.session
-cypress/support/utils/pdf.js
 cypress.config.js
 cypress.env.example.json
 docs/
@@ -162,9 +158,9 @@ docs/
 README.md
 ```
 
-Specs previstos: `login.cy.js`, `hu01-cadastro-atribuicoes.cy.js`, `hu02-editar-atribuicoes.cy.js`, `hu03-gerar-termos.cy.js`, `hu04-relatorio-movimentacao.cy.js`, `hu05-relatorio-atribuicoes-area.cy.js`.
+Specs: `login.cy.js`, `hu01-cadastro-atribuicoes.cy.js`, `hu02-editar-atribuicoes.cy.js`, `hu03-gerar-termos.cy.js`, `hu04-movimentacao-ativos.cy.js`, `hu05-atribuicoes-por-area.cy.js`.
 
-Page Objects previstos: `LoginPage`, `AtribuicoesPage`, `NovaAtribuicaoPage`, `EditarAtribuicaoPage`, `GerarTermosPage`, `RelatorioMovimentacaoPage`, `RelatorioAtribuicoesAreaPage`.
+Page Objects: `LoginPage`, `HomePage`, `SidebarPage`, `AtribuicoesListPage`, `NovaAtribuicaoPage`, `NovoAtivoPage`, `EditarAtribuicaoPage`, `GerarTermosPage`, `MovimentacaoAtivosPage`, `AtribuicoesPorAreaPage`.
 
 ---
 
@@ -195,23 +191,15 @@ Exemplo: `CT000-dashboard-pos-login.png`, `CT026-pdf-responsabilidade.png`.
 
 ---
 
-## 8. Prioridades de implementação futura
+## 8. Prioridades
 
-- **P0:** happy path + um negativo bloqueante por HU (obrigatório para entrega mínima).
-- **P1:** regras (Office, COM DEFEITO / DISPONIVEL, cancelar, exclusão mútua de termos).
-- **P2:** bordas de data e período invertido.
+- **P0 (executado):** happy path e um negativo bloqueante por história, mais o login.
+- **P1 e P2 (especificados, não executados):** Office, Home Office, cancelar, defeito, substituição, empréstimo, período vazio e datas inválidas.
 
-Dependências: CT000 → CT001/CT014 (massa) → CT015–CT024 → CT025–CT033 → CT034–CT044.
+Dependências: CT000 → CT001/CT014 (massa) → CT015–CT022 → CT025–CT031 → CT034–CT037 e CT041–CT043.
 
 ---
 
-## 9. Artefatos ainda necessários da UI autenticada
+## 9. Fora desta execução
 
-Enviar quando possível (não bloqueiam este documento):
-
-- Prints e nomes exatos dos menus **Atribuições** e **Relatórios**.
-- Labels com `*` e mensagens de validação.
-- Colunas reais da tela HU05.
-- Modal de termos (campo CPF, X, radios).
-- Comportamento de **Salvar sem ativo**.
-- PDF de amostra anonimizado.
+Permanecem na matriz, sem execução nesta entrega: CT002–CT010, CT012, CT016–CT018, CT020, CT021, CT023, CT024, CT027, CT029, CT030, CT032, CT033, CT038–CT040 e CT044.
